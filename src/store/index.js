@@ -8,7 +8,7 @@ export const useAppStore = defineStore('App', {
     async getDataList(data) {
       getGitHubList(data)
         .then((res) => {
-          this.dataList = Object.freeze(res);
+          this.dataList = this.dataList.concat(res);
         })
         .catch((err) => console.warn(err));
     },

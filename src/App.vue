@@ -1,25 +1,25 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <h2>Wei Infinite Scroll</h2>
+  <InfiniteScrollContainer :list="list" />
+  <div @click="page += 1">add</div>
 </template>
 
 <script setup>
-import {onMounted} from 'vue';
-import HelloWorld from './components/InfiniteScrollContainer.vue';
+import {computed, ref, watch} from 'vue';
+import InfiniteScrollContainer from './components/InfiniteScrollContainer.vue';
 import {useAppStore} from '@/store/index';
 
-onMounted(() => {
-  useAppStore().getDataList({page: 1});
-});
-</script>
+const page = ref(1);
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+const list = computed(() => useAppStore().dataList);
+
+watch(
+  () => page.value,
+  (count) => {
+    useAppStore().getDataList({page: count});
+  },
+  {
+    immediate: true,
+  },
+);
+</script>
