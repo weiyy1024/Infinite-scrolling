@@ -3,15 +3,14 @@
   <HelloWorld msg="Welcome to Your Vue.js App" />
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue';
+<script setup>
+import {onMounted} from 'vue';
+import HelloWorld from './components/InfiniteScrollContainer.vue';
+import {useAppStore} from '@/store/index';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld,
-  },
-};
+onMounted(() => {
+  useAppStore().getDataList({page: 1});
+});
 </script>
 
 <style>
