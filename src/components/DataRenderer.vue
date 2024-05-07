@@ -34,14 +34,16 @@ watch(
 </script>
 <style scoped>
 .data-renderer {
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 15px 16px;
+  margin-bottom: 16px;
   background-color: white;
 }
 .data-renderer__title {
   font-weight: 700;
+  margin-bottom: 8px;
 }
 .data-renderer__description {
   height: 20px;
+  margin-bottom: 8px;
 }
 </style>
