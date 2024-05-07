@@ -1,28 +1,35 @@
 import {ref, computed, watch} from 'vue';
 
 const useInfiniteScroll = ({list}, emit) => {
-  const start = ref(0);
-  const end = ref(0);
+  const startIndex = ref(0);
+  const endIndex = ref(6);
 
-  const handlerScroll = () => {};
-  const handlerClick = () => {
-    end.value = list.value.length - 1;
+  const handlerScroll = (e) => {
+    const scrollTop = e.target.scrollTop;
+    console.log(scrollTop);
+    startIndex.value = Math.floor();
+    endIndex.value = Math.ceil();
   };
-  const visibleList = computed(() => list.value);
+
+  const visibleList = computed(() => {
+    const data = JSON.parse(JSON.stringify(list.value));
+
+    return data.slice(startIndex.value, endIndex.value);
+  });
 
   watch(
-    () => end.value,
+    () => endIndex.value,
     (index) => {
-      if (index === list.value.length - 1) emit('search');
+      console.log(index);
+      if (index === list.value.length) emit('search');
     },
   );
 
   return {
-    start,
-    end,
+    startIndex,
+    endIndex,
     visibleList,
     handlerScroll,
-    handlerClick,
   };
 };
 

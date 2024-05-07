@@ -1,14 +1,15 @@
 <template>
-  <div class="infinite-scroll">
-    <DataRenderer
-      v-for="data in visibleList"
-      :key="data.uuid"
-      :title="data.title"
-      :dec="data.description"
-      :url="data.url"
-      @updateHeight="updateHeight"
-    />
-    <div @click="handlerClick">add</div>
+  <div class="infinite-scroll-container" @scroll="handlerScroll">
+    <div class="infinite-scroll-wrapper">
+      <DataRenderer
+        v-for="data in visibleList"
+        :key="data.uuid"
+        :title="data.title"
+        :dec="data.description"
+        :url="data.url"
+        @updateHeight="updateHeight"
+      />
+    </div>
   </div>
 </template>
 
@@ -25,13 +26,16 @@ const props = defineProps({
   },
 });
 
-const {visibleList, handlerClick} = useInfiniteScroll({list: toRef(() => props.list)}, emit);
-
+const {visibleList, handlerScroll, startIndex, endIndex} = useInfiniteScroll(
+  {list: toRef(() => props.list)},
+  emit,
+);
+console.log(startIndex, endIndex);
 const updateHeight = () => {};
 </script>
 
 <style scoped>
-.infinite-scroll {
+.infinite-scroll-wrapper {
   background-color: antiquewhite;
   margin: 20px;
   padding: 10px;
