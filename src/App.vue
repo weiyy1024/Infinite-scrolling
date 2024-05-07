@@ -1,31 +1,24 @@
 <template>
   <h2>Wei Infinite Scroll</h2>
-  <InfiniteScrollContainer :list="list" @search="page += 1" />
+  <InfiniteScrollContainer :list="list" @search="handlerSearch" />
   <div class="loader" v-show="isLoading"></div>
 </template>
 
 <script setup>
-import {computed, ref, watch} from 'vue';
+import {computed} from 'vue';
 import InfiniteScrollContainer from './components/InfiniteScrollContainer.vue';
 import {useAppStore} from '@/store/index';
 import useLoading from '@/composables/useLoading';
-const page = ref(1);
 
 const list = computed(() => useAppStore().dataList);
 const {load, unLoad, isLoading} = useLoading();
 
-watch(
-  () => page.value,
-  async (count) => {
-    load();
-    await useAppStore().getDataList({page: count});
+const handlerSearch = async (page) => {
+  load();
+  await useAppStore().getDataList({page});
 
-    unLoad();
-  },
-  {
-    immediate: true,
-  },
-);
+  unLoad();
+};
 </script>
 <style scoped>
 .loader {

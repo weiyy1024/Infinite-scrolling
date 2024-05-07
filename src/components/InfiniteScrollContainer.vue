@@ -2,14 +2,16 @@
   <div class="infinite-scroll-container" @scroll="handlerScroll" ref="container">
     <div class="infinite-scroll-wrapper" :style="{height: `${calcInfiniteContainerHeight}px`}">
       <div class="infinite-scroll-items" :style="{transform: `${calcInfiniteContainerTransLate}`}">
-        <DataRenderer
-          v-for="data in visibleList"
-          :key="data.uuid"
-          :title="data.title"
-          :dec="data.description"
-          :url="data.url"
-          @updateHeight="handlerUpdateHeight"
-        />
+        <slot name="list-item">
+          <DataRenderer
+            v-for="data in visibleList"
+            :key="data.uuid"
+            :title="data.title"
+            :dec="data.description"
+            :url="data.url"
+            @updateHeight="handlerUpdateHeight"
+          />
+        </slot>
       </div>
     </div>
   </div>
@@ -56,5 +58,9 @@ const {
   border-radius: 20px;
   height: 620px;
   overflow: scroll;
+}
+
+.infinite-scroll-items {
+  padding: 10px 0;
 }
 </style>
