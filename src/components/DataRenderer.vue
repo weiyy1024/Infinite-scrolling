@@ -32,18 +32,22 @@ watch(
   },
 );
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .data-renderer {
   padding: 15px 16px;
   margin-bottom: 16px;
   background-color: white;
-}
-.data-renderer__title {
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.data-renderer__description {
-  height: 20px;
-  margin-bottom: 8px;
+  border: 1px solid grey;
+  border-radius: 10px;
+
+  &__title {
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  &__description {
+    height: 20px;
+    margin-bottom: 8px;
+  }
 }
 </style>

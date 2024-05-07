@@ -1,6 +1,6 @@
 <template>
-  <h2>Wei Infinite Scroll</h2>
-  <InfiniteScrollContainer :list="list" @search="handlerSearch" />
+  <h2>Dora Infinite Scroll</h2>
+  <InfiniteScrollContainer :list="list" @updatePage="updatePageHandler" />
   <div class="loader" v-show="isLoading"></div>
 </template>
 
@@ -13,7 +13,7 @@ import useLoading from '@/composables/useLoading';
 const list = computed(() => useAppStore().dataList);
 const {load, unLoad, isLoading} = useLoading();
 
-const handlerSearch = async (page) => {
+const updatePageHandler = async (page) => {
   load();
   await useAppStore().getDataList({page});
 

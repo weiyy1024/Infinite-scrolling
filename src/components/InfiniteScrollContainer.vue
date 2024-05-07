@@ -1,5 +1,5 @@
 <template>
-  <div class="infinite-scroll-container" @scroll="handlerScroll" ref="container">
+  <div class="infinite-scroll-container" @scroll="scrollHandler" ref="container">
     <div class="infinite-scroll-wrapper" :style="{height: `${calcInfiniteContainerHeight}px`}">
       <div class="infinite-scroll-items" :style="{transform: `${calcInfiniteContainerTransLate}`}">
         <slot name="list-item">
@@ -9,7 +9,7 @@
             :title="data.title"
             :dec="data.description"
             :url="data.url"
-            @updateHeight="handlerUpdateHeight"
+            @updateHeight="updateHeightHandler"
           />
         </slot>
       </div>
@@ -21,7 +21,7 @@
 import {ref, toRef, watch} from 'vue';
 import DataRenderer from './DataRenderer';
 import useInfiniteScroll from '@/composables/useInfiniteScroll';
-const emit = defineEmits(['search']);
+const emit = defineEmits(['updatePage']);
 
 const props = defineProps({
   list: {
@@ -36,15 +36,15 @@ watch(
   () => container.value,
   (dom) => {
     if (dom === null) return;
-    handlerUpdateContainerHeight(dom.offsetHeight);
+    updateContainerHeightHandler(dom.offsetHeight);
   },
 );
 
 const {
   visibleList,
-  handlerScroll,
-  handlerUpdateHeight,
-  handlerUpdateContainerHeight,
+  scrollHandler,
+  updateHeightHandler,
+  updateContainerHeightHandler,
   calcInfiniteContainerHeight,
   calcInfiniteContainerTransLate,
 } = useInfiniteScroll({list: toRef(() => props.list)}, emit);
@@ -52,7 +52,6 @@ const {
 
 <style scoped>
 .infinite-scroll-container {
-  background-color: antiquewhite;
   margin: 20px;
   padding: 10px;
   border-radius: 20px;

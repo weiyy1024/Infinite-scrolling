@@ -5,7 +5,7 @@ const useInfiniteScroll = ({list, pageAmount = 6}, emit) => {
   const startIndex = ref(0);
   const endIndex = ref(pageAmount);
 
-  const handlerScroll = (e) => {
+  const scrollHandler = (e) => {
     const scrollTop = e.target.scrollTop;
 
     startIndex.value = Math.floor(scrollTop / itemHeight.value);
@@ -20,7 +20,7 @@ const useInfiniteScroll = ({list, pageAmount = 6}, emit) => {
         page.value += 1;
       }
 
-      emit('search', page.value);
+      emit('updatePage', page.value);
     },
     {
       immediate: true,
@@ -28,12 +28,12 @@ const useInfiniteScroll = ({list, pageAmount = 6}, emit) => {
   );
 
   const containerHeight = ref(0);
-  const handlerUpdateContainerHeight = (height) => {
+  const updateContainerHeightHandler = (height) => {
     containerHeight.value = height;
   };
 
   const itemHeight = ref(0);
-  const handlerUpdateHeight = (height) => {
+  const updateHeightHandler = (height) => {
     itemHeight.value = height;
   };
 
@@ -58,9 +58,9 @@ const useInfiniteScroll = ({list, pageAmount = 6}, emit) => {
     visibleList,
     calcInfiniteContainerHeight,
     calcInfiniteContainerTransLate,
-    handlerScroll,
-    handlerUpdateHeight,
-    handlerUpdateContainerHeight,
+    scrollHandler,
+    updateHeightHandler,
+    updateContainerHeightHandler,
   };
 };
 

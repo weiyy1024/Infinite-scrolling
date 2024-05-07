@@ -11,6 +11,9 @@
     "axios": "^1.6.8",
     "core-js": "^3.8.3",
     "pinia": "^2.1.4",
+    "sass": "^1.77.0",
+    "sass-loader": "^14.2.1",
+    "scss": "^0.2.4",
     "vue": "^3.2.13"
   },
   "devDependencies": {
