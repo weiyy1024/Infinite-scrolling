@@ -5,8 +5,8 @@ const useInfiniteScroll = ({list, pageAmount = 6}, emit) => {
   const startIndex = ref(0);
   const endIndex = ref(pageAmount - 1);
 
-  const scrollHandler = (e) => {
-    const scrollTop = e.target.scrollTop;
+  const scrollHandler = (event) => {
+    const scrollTop = event.target.scrollTop;
 
     // 起始點index
     startIndex.value = Math.floor(scrollTop / itemHeight.value);
@@ -58,9 +58,7 @@ const useInfiniteScroll = ({list, pageAmount = 6}, emit) => {
 
   // 可視範圍列表
   const visibleList = computed(() => {
-    const data = JSON.parse(JSON.stringify(list.value));
-
-    return data.slice(startIndex.value, endIndex.value);
+    return list.value.slice(startIndex.value, endIndex.value);
   });
 
   return {

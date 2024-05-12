@@ -11,6 +11,7 @@ export const useAppStore = defineStore('App', {
     async getDataList(data) {
       //  排除已拿到最後一頁則不再更新
       if (this.lock) return;
+
       getGitHubList(data)
         .then((res) => {
           if (res.length < 6) {
@@ -20,7 +21,7 @@ export const useAppStore = defineStore('App', {
           if (this.dataList.length === 0) {
             this.dataList = res;
           } else {
-            this.dataList = [...this.dataList, ...res];
+            this.dataList.push(...res);
           }
         })
         .catch((err) => console.warn(err));
