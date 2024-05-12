@@ -1,7 +1,7 @@
 <template>
   <h2>Dora Infinite Scroll</h2>
   <InfiniteScrollContainer :list="list" @updatePage="updatePageHandler" />
-  <div class="loader" v-show="isLoading"></div>
+  <div class="loader" v-show="isLoading" />
 </template>
 
 <script setup>
@@ -13,11 +13,11 @@ import useLoading from '@/composables/useLoading';
 const list = computed(() => useAppStore().dataList);
 const {load, unLoad, isLoading} = useLoading();
 
-const updatePageHandler = async (page) => {
+const updatePageHandler = async (data) => {
   load();
-  await useAppStore().getDataList({page});
-
-  unLoad();
+  await useAppStore()
+    .getDataList(data)
+    .finally(() => unLoad());
 };
 </script>
 <style scoped>
@@ -25,6 +25,7 @@ const updatePageHandler = async (page) => {
   width: 65px;
   height: 30px;
   position: relative;
+  margin: 0 auto;
 }
 .loader:before {
   content: '';

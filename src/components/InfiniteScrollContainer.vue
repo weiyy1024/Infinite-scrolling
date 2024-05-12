@@ -47,7 +47,7 @@ const {
   updateContainerHeightHandler,
   calcInfiniteContainerHeight,
   calcInfiniteContainerTransLate,
-} = useInfiniteScroll({list: toRef(() => props.list)}, emit);
+} = useInfiniteScroll({list: toRef(() => props.list), page: 6}, emit);
 </script>
 
 <style scoped>

@@ -48,6 +48,9 @@ watch(
   &__description {
     height: 20px;
     margin-bottom: 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 </style>

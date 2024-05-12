@@ -9,19 +9,19 @@ export const useAppStore = defineStore('App', {
   getters: {},
   actions: {
     async getDataList(data) {
+      //  排除已拿到最後一頁則不再更新
       if (this.lock) return;
-
       getGitHubList(data)
         .then((res) => {
-          const {page} = data;
-          const list = [...this.dataList];
-
-          if (page === 2) {
-            list.pop();
+          if (res.length < 6) {
+            this.lock = true;
           }
 
-          this.dataList = list.concat(res);
-          this.lock = res.length === 0;
+          if (this.dataList.length === 0) {
+            this.dataList = res;
+          } else {
+            this.dataList = [...this.dataList, ...res];
+          }
         })
         .catch((err) => console.warn(err));
     },
