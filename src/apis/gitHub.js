@@ -13,7 +13,7 @@ export const getGitHubList = async ({page = 1, pageAmount = 6}) => {
   const res = await axios({
     url: '/repos',
     method: 'get',
-    isAuth: true,
+    isAuth: false,
     params: {
       per_page: pageAmount,
       page,

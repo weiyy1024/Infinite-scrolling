@@ -12,7 +12,7 @@ export const useAppStore = defineStore('App', {
       //  排除已拿到最後一頁則不再更新
       if (this.lock) return;
 
-      getGitHubList(data)
+      await getGitHubList(data)
         .then((res) => {
           if (res.length < 6) {
             this.lock = true;

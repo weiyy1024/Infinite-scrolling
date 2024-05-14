@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const apis = axios.create({
-  baseURL: 'https://api.github.com/users/weiyy1024',
+  baseURL: 'https://api.github.com/users/vuejs',
   timeout: 3000,
 });
 
@@ -12,6 +12,7 @@ apis.interceptors.request.use(
         Authorization: `token ${process.env.VUE_APP_USER_TOKEN}`,
       };
     }
+
     return config;
   },
   (error) => {

@@ -1,4 +1,4 @@
-import {ref, computed, watch} from 'vue';
+import {ref, computed, watch, onMounted} from 'vue';
 
 const useInfiniteScroll = ({list, pageAmount = 6}, emit) => {
   const page = ref(1);
@@ -7,30 +7,20 @@ const useInfiniteScroll = ({list, pageAmount = 6}, emit) => {
 
   const scrollHandler = (event) => {
     const scrollTop = event.target.scrollTop;
-
     // 起始點index
     startIndex.value = Math.floor(scrollTop / itemHeight.value);
     // 最後一筆的index
     endIndex.value = Math.floor((scrollTop + containerHeight.value) / itemHeight.value);
   };
 
-  watch(
-    () => page.value,
-    (val) => {
-      // 判別是否已取過
-      const totalPage = Math.ceil(list.value.length / pageAmount);
-      if (val > totalPage) emit('updatePage', {page: val, pageAmount});
-    },
-    {immediate: true},
-  );
+  onMounted(() => emit('updatePage', {page: 1, pageAmount}));
 
   watch(
     () => endIndex.value,
     (index) => {
       if (index === list.value.length) {
         page.value++;
-      } else {
-        page.value = Math.ceil(index / pageAmount);
+        emit('updatePage', {page: page.value, pageAmount});
       }
     },
   );

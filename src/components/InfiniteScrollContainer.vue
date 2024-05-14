@@ -1,17 +1,20 @@
 <template>
-  <div class="infinite-scroll-container" @scroll="scrollHandler" ref="container">
+  <div
+    class="infinite-scroll-container"
+    :class="[{lock_scroll: isLoading}]"
+    @scroll="scrollHandler"
+    ref="container"
+  >
     <div class="infinite-scroll-wrapper" :style="{height: `${calcInfiniteContainerHeight}px`}">
       <div class="infinite-scroll-items" :style="{transform: `${calcInfiniteContainerTransLate}`}">
-        <slot name="list-item">
-          <DataRenderer
-            v-for="data in visibleList"
-            :key="data.uuid"
-            :title="data.title"
-            :dec="data.description"
-            :url="data.url"
-            @updateHeight="updateHeightHandler"
-          />
-        </slot>
+        <DataRenderer
+          v-for="data in visibleList"
+          :key="data.uuid"
+          :title="data.title"
+          :dec="data.description"
+          :url="data.url"
+          @updateHeight="updateHeightHandler"
+        />
       </div>
     </div>
   </div>
@@ -27,6 +30,10 @@ const props = defineProps({
   list: {
     type: Array,
     default: () => [],
+  },
+  isLoading: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -57,6 +64,10 @@ const {
   border-radius: 20px;
   height: 620px;
   overflow: scroll;
+}
+
+.infinite-scroll-container.lock_scroll {
+  overflow: hidden;
 }
 
 .infinite-scroll-items {
