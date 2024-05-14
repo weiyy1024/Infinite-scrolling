@@ -10,13 +10,12 @@ const handler = (data) => {
 };
 
 export const getGitHubList = async ({page = 1, pageAmount = 6}) => {
-  const first = page === 1;
   const res = await axios({
     url: '/repos',
     method: 'get',
     isAuth: true,
     params: {
-      per_page: first ? pageAmount + 1 : pageAmount,
+      per_page: pageAmount,
       page,
     },
   });
